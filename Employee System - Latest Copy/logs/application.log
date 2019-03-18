@@ -1,0 +1,16 @@
+2019-03-18 14:00:06,288 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-11 - Database [default] initialized at jdbc:h2:file:./data/productsDB
+2019-03-18 14:00:06,306 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-11 - Creating Pool for datasource 'default'
+2019-03-18 14:00:07,526 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-11 - ApplicationTimer demo: Starting application at 2019-03-18T14:00:07.523Z
+2019-03-18 14:00:07,846 [WARN] from org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator in play-dev-mode-akka.actor.default-dispatcher-11 - HV000184: ParameterMessageInterpolator has been chosen, EL interpolation will not be supported
+2019-03-18 14:00:08,107 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-11 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+    filters.ExampleFilter
+
+2019-03-18 14:00:08,110 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-11 - Application started (Dev)
+2019-03-18 14:00:25,741 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-9 - The "validate" method in class "models.users.Login" is deprecated since Play 2.6. To migrate to class-level constraints see https://www.playframework.com/documentation/2.6.x/Migration26#java-form-changes and https://www.playframework.com/documentation/2.6.x/JavaForms#Advanced-validation
+2019-03-18 14:11:54,625 [INFO] from play.core.server.AkkaHttpServer in pool-7-thread-5 - Stopping server...
+2019-03-18 14:11:54,717 [INFO] from application in application-akka.actor.default-dispatcher-15 - ApplicationTimer demo: Stopping application at 2019-03-18T14:11:54.717Z after 707s.
+2019-03-18 14:11:54,719 [INFO] from application in application-akka.actor.default-dispatcher-15 - Shutting down connection pool.

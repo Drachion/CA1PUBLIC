@@ -1,0 +1,3 @@
+[0m[[0m[31merror[0m] [0m[0m[Error] /home/wdd/Software-CA1/CA1 -  The Reckoning/Software-CA1/Employee System - Latest Copy/app/views/addManager.scala.html:49[0m
+[0m[[0m[31merror[0m] [0m[0m} @* end of main *@: Expected '"' but found 'EOF'[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mtwirlCompileTemplates[0m) Twirl compilation failed[0m

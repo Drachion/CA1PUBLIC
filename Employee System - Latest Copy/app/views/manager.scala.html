@@ -1,0 +1,109 @@
+@(managers: List[models.users.Manager],user: models.users.User, env: play.api.Environment)
+@main("Manager",user){
+
+    @if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+    <h1>Manager Management</h1>
+    } else {
+    <h1>Manager List</h1>
+    }
+
+    @* Display successful new user message from flash, if it is set *@
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success")
+		</div>
+}
+
+    <div class="col-sm-12">
+        <h4>Here are all the current Managers on the system. </h4>
+
+        <!-- @if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+            <p>
+                <a href="@routes.HomeController.addManager()">
+                    <button class="btn btn-primary">Add a new Manager</button>
+                </a>
+            </p>
+        }
+
+        @if((user != null) && ("admin".equals(user.getRole()))) {
+
+            <p>
+                <a href="@routes.HomeController.addManager()">
+                    <button class="btn btn-primary">Add a new Manager</button>
+                </a>
+            </p>
+
+        } -->
+
+
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+        <!-- The header row-->
+        <tr>
+                <th>Image</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Job Role</th>
+                <th>Street1</th>
+                <th>Street2</th>
+                <th>Town</th>
+                <th>Post Code</th>
+                <!-- <th>Department</th> -->
+                <th>Email</th>
+                <th>DOB</th>
+
+            <!-- DO we also need to output their address here?  -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Managers data -->
+       
+            @* Loop for creating table rows from User data *@
+            @for(m<-managers) {
+               <tr>
+                    @if(env.resource("public/images/productImages/" + m.getId + "thumb.jpg").isDefined) {
+                        <td><img src="/assets/images/productImages/@(m.getId + "thumb.jpg")"/></td>
+                    } else {
+                        <td><img src="/assets/images/productImages/noImage.jpg"/></td>
+}
+                    <td>@m.getId</td>
+                    <td>@m.getName</td>
+                    <td>@m.getJobRole</td>
+                    <td>@m.getAddress().getStreet1</td>
+                    <td>@m.getAddress().getStreet2</td>
+                    <td>@m.getAddress().getTown</td>
+                    <td>@m.getAddress().getPostCode</td>
+                    <!-- <td>@m.getDepartment</td> -->
+                    <td>@m.getEmail</td>
+                    <td>@m.getDateOfBirthString</td>
+
+                    @if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+                  <!-- Update button -->
+						<td>
+							<a href="@routes.HomeController.updateManager(m.getEmail)" class="button-xs btn-danger">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+                        </td>
+                  <!-- Delete button -->
+						<td>
+							<a href="@routes.HomeController.deleteManager(m.getEmail)" class="button-xs btn-danger" onclick="return confirmDel();">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+                        </td>
+               </tr>
+            } @* End Scala if for manager/admin check *@
+            
+        }
+        
+        </tbody>
+    </table>
+
+    @if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+    <p>
+        <a href="@routes.HomeController.addManager()">
+            <button class="btn btn-primary">Add a new Manager</button>
+        </a>
+    </p>
+    }
+</div>
+ }

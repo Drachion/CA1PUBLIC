@@ -1,0 +1,79 @@
+@(pagename:String,user: models.users.User)(content:Html)
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style>
+	    .footer { font-weight: bold; color: white; background-color:#222; }
+	    .sidecol { font-weight: bold; background-color: rgb(2, 163, 83); border-width: thick; border-color: black}
+	    .sidecol h2 { font-weight: bold; }
+	    .midcol h1 { text-align: center; font-weight: bold; }
+	    .midcol h3 { text-align: center; color: steelblue; }
+	    .redtext { color: darkred; }
+	</style>
+	<title>Software CA1 @pagename</title>
+    </head>
+    <body>
+	<nav class="navbar navbar-inverse">
+	    <div class="container-fluid">
+		<div class="navbar-header">
+		    <a class="navbar-brand" href="#">Software CA1</a>
+		</div>
+		<ul class="nav navbar-nav">
+            <li @if(pagename == "Home") {class="active"}><a href="@routes.HomeController.index()">Home</a></li>
+			<li @if(pagename == "Projects") {class="active"}><a href="@routes.HomeController.projects()">Projects</a></li>
+			<li @if(pagename == "Employees") {class="active"}><a href="@routes.HomeController.usersEmployees()">Employees</a></li>
+			
+			
+			@if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+				<li @if(pagename == "Managers") {class="active"}><a href="@routes.HomeController.usersManagers()">View Managers</a></li>
+
+			}
+		</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<li @if(pagename == "Register") {class="active"}><a href="@routes.LoginController.registerUser()"><span class="glyphicon glyphicon-user"></span> Register user</a></li>
+			<li @if(pagename == "Log In") {class="active"}>
+				@if(user != null) {
+					<a href="@routes.LoginController.logout()"><span class="glyphicon glyphicon-log-in"></span> Log Out</a>
+				} else {
+					<a href="@routes.LoginController.login()"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
+			</li>
+			</ul>
+} 
+		
+	    </div>
+	</nav>
+
+
+	<div class="container-fluid">
+	    <div class="row">
+		<div class="col-sm-2">
+		    <div class="well sidecol">
+			<h2>News</h2>
+			<h3>Text pertaining to databases</h3>
+			<p>This is a CA by James Lynam (X00073019) and Stephen Murphy(X00149904) and it <span class="redtext">will</span> be fixed before Monday!</p>
+		    </div>
+		</div>
+		<div class="col-sm-8">
+		    <div class="midcol">
+			@content
+		    </div>
+		</div>
+
+	    </div>
+	    <div class="row">
+		<div class="col-sm-12">
+		    <div class="well footer">
+			Website created by the lads.
+		    </div>
+		</div>
+	    </div>
+	</div>
+	<script src ="@routes.Assets.versioned("javascripts/main.js")"></script>
+
+
+    </body>
+</html>
+

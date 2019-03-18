@@ -1,0 +1,65 @@
+@(ManagerForm: Form[models.users.Manager], addressForm: Form[models.users.Address],user: models.users.User)
+
+
+@import helper._
+
+@main("Add Manager",user){
+    <p class="lead">Add a new Manager</p>
+
+    <!-- Use a views.html.helpers package method to create the form (instead of html)-->
+    <!-- Note the arguments that are being passed to the scala function form (they are
+         essentially instructions for constructing an HTML form element)-->
+    @form(action=routes.HomeController.addManagerSubmit, 'class -> "form-horizontal", 'role -> "form", 'method -> "POST", 'enctype -> "multipart/form-data") {
+        @* CSRF attack prevention *@
+        @* This token, sent by the controller, will be used to authenticate the form submission *@
+        @CSRF.formField
+             @inputText(ManagerForm("email"), '_label -> "Email", 'class -> "form-control")
+             @inputText(ManagerForm("name"), '_label -> "Name", 'class -> "form-control")
+             @inputDate(ManagerForm("dateOfBirth"), args = 'size -> 10, '_label -> "Date Of Birth", 'class -> "form-control")
+             @inputText(ManagerForm("password"), '_label -> "Password", 'class -> "form-control")
+             <!-- @inputText(ManagerForm("dept"), '_label -> "Department", 'class -> "form-control")          -->
+             @inputText(ManagerForm("jobRole"), '_label -> "Position", 'class -> "form-control")
+             
+		<p><strong>Assign Projects</strong></p>
+            @for((value, name) <- project.Project.options) {
+                <input type="checkbox" name="projSelect[]" value="@value"  
+                    @if(ManagerForm("id").getValue.isPresent && ManagerForm("id").getValue.get != "") { 
+                        @if(project.Project.inProject(value.toLong, ManagerForm("id").getValue.get.toLong)) {
+                            checked
+                        }
+                    } 
+                /> @name </br>
+            }
+            </p>
+
+
+             @inputText(addressForm("street1"), '_label -> "Street 1 Address", 'class -> "form-control")
+             @inputText(addressForm("street2"), '_label -> "Street 2 Address", 'class -> "form-control")
+             @inputText(addressForm("town"), '_label -> "Town", 'class -> "form-control")
+             @inputText(addressForm("postCode"), '_label -> "PostCode", 'class -> "form-control")
+
+             @inputText(ManagerForm("role").copy(value=Some("manager")), '_label -> "",'hidden -> "hidden")
+             @inputText(addressForm("email"), '_label -> "", 'hidden -> "hidden")
+
+
+
+             <label>Image Upload</label>
+             <input class="btn-sm btn-default" type="file" name="upload"> 
+
+            
+            <!-- We use the bootstrap actions class for the buttons at the bottom:
+                1. The submit button for the form
+                2. A button that allows the user to cancel without adding an item
+            -->
+            
+            @if((user != null) && (("manager".equals(user.getRole())) || ("admin".equals(user.getRole())))) {
+            <div class="actions">
+                <input type="submit" value="Add / Update Manager" class="btn btn-primary">
+                <a href="@routes.HomeController.usersManagers()">
+                    <button type="button" class="btn btn-warning">Cancel</button>
+                </a>
+            </div>
+        } @* end of Manager/Admin access for Add/Update Manager
+    } @* end of form *@
+} @* end of main *@
+}
